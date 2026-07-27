@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kampala Flame Grill</title>
+<style>
+  :root{
+    --charcoal:#1C1B18;
+    --charcoal-2:#252320;
+    --marigold:#E8A33D;
+    --chili:#C1440E;
+    --leaf:#33503F;
+    --cream:#F2EDE4;
+    --cream-dim:#c9c3b7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--charcoal);
+    color:var(--cream);
+    font-family:'Barlow', 'Segoe UI', sans-serif;
+    line-height:1.5;
+  }
+  @font-face{
+    font-family:'Barlow';
+    src:local('Barlow');
+  }
+  h1,h2,h3{
+    font-family:'Georgia', 'Times New Roman', serif;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6vw;
+    background:rgba(28,27,24,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(242,237,228,0.08);
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-size:1.3rem;font-weight:700;}
+  .brand-mark{
+    width:34px;height:34px;border-radius:50%;
+    background:conic-gradient(from 200deg, var(--chili), var(--marigold), var(--chili));
+    box-shadow:0 0 14px rgba(232,163,61,0.5);
+  }
+  .nav-links{display:flex;gap:28px;font-size:0.95rem;color:var(--cream-dim);}
+  .nav-links a:hover{color:var(--marigold);}
+  .cart-btn{
+    background:var(--marigold); color:var(--charcoal); font-weight:700;
+    padding:9px 16px; border-radius:999px; border:none; cursor:pointer;
+    font-size:0.9rem;
+  }
+  .cart-btn:focus-visible, button:focus-visible, a:focus-visible{
+    outline:2px solid var(--marigold); outline-offset:3px;
+  }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:8vh 6vw 10vh;
+    overflow:hidden;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;
+  }
+  .embers{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 20% 90%, rgba(193,68,14,0.25), transparent 40%),
+      radial-gradient(circle at 85% 15%, rgba(232,163,61,0.18), transparent 45%);
+  }
+  .ember-dot{
+    position:absolute; border-radius:50%;
+    background:var(--marigold);
+    opacity:0.8; filter:blur(0.5px);
+    animation:rise linear infinite;
+  }
+  @keyframes rise{
+    0%{transform:translateY(0) scale(1); opacity:0;}
+    10%{opacity:0.9;}
+    100%{transform:translateY(-70vh) scale(0.3); opacity:0;}
+  }
+  .eyebrow{
+    color:var(--marigold); text-transform:uppercase; font-size:0.78rem;
+    letter-spacing:0.18em; font-weight:700; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--marigold);display:inline-block;}
+  .hero h1{
+    font-size:clamp(2.6rem, 5.2vw, 4.4rem); line-height:1.02; margin-bottom:22px;
+    position:relative; z-index:1;
+  }
+  .hero h1 em{font-style:italic; color:var(--marigold);}
+  .hero p{
+    max-width:44ch; color:var(--cream-dim); font-size:1.08rem; margin-bottom:30px;
+    position:relative; z-index:1;
+  }
+  .hero-ctas{display:flex; gap:16px; position:relative; z-index:1; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--chili); color:var(--cream); padding:15px 28px; border-radius:6px;
+    font-weight:700; font-size:0.95rem; border:none; cursor:pointer;
+    box-shadow:0 8px 24px rgba(193,68,14,0.35);
+  }
+  .btn-ghost{
+    border:1px solid rgba(242,237,228,0.3); padding:15px 28px; border-radius:6px;
+    font-weight:600; font-size:0.95rem;
+  }
+  .hero-visual{
+    position:relative; z-index:1;
+    aspect-ratio:1/1; border-radius:12px;
+    background:
+      radial-gradient(circle at 50% 40%, rgba(232,163,61,0.35), transparent 60%),
+      linear-gradient(160deg, var(--charcoal-2), #0f0e0c);
+    border:1px solid rgba(232,163,61,0.25);
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:30px;
+  }
+  .hero-visual .grill-plate{
+    width:80%; aspect-ratio:1/1; border-radius:50%;
+    background:repeating-radial-gradient(circle at 50% 50%, #2a2723 0 6px, #1c1b18 6px 12px);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.85rem; color:var(--cream-dim);
+    border:2px solid rgba(232,163,61,0.3);
+  }
+
+  section{padding:9vh 6vw;}
+  .section-head{margin-bottom:48px; max-width:56ch;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:clamp(2rem,3.4vw,2.8rem);}
+  .section-head p{color:var(--cream-dim); margin-top:14px;}
+
+  /* MENU */
+  #menu{background:var(--charcoal-2); border-top:1px solid rgba(242,237,228,0.06); border-bottom:1px solid rgba(242,237,228,0.06);}
+  .menu-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;
+  }
+  .dish{
+    background:var(--charcoal);
+    border:1px solid rgba(232,163,61,0.15);
+    border-radius:10px;
+    padding:26px;
+    display:flex; flex-direction:column; gap:12px;
+    transition:transform 0.2s ease, border-color 0.2s ease;
+  }
+  .dish:hover{transform:translateY(-4px); border-color:var(--marigold);}
+  .dish-top{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
+  .dish h3{font-size:1.25rem;}
+  .dish-price{color:var(--marigold); font-weight:700; font-family:'Georgia',serif; font-size:1.15rem; white-space:nowrap;}
+  .dish p{color:var(--cream-dim); font-size:0.92rem; flex-grow:1;}
+  .dish-add{
+    align-self:flex-start;
+    background:none; border:1px solid var(--marigold); color:var(--marigold);
+    padding:8px 16px; border-radius:999px; font-weight:600; cursor:pointer; font-size:0.85rem;
+  }
+  .dish-add:hover{background:var(--marigold); color:var(--charcoal);}
+
+  /* ABOUT / LOCATION */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;}
+  .about-grid p{color:var(--cream-dim); margin-bottom:16px;}
+  .fact-row{display:flex; gap:30px; margin-top:30px; flex-wrap:wrap;}
+  .fact-row div{border-left:2px solid var(--marigold); padding-left:14px;}
+  .fact-row b{display:block; font-size:1.5rem; font-family:'Georgia',serif; color:var(--marigold);}
+  .fact-row span{font-size:0.85rem; color:var(--cream-dim);}
+  .map-box{
+    border-radius:10px; overflow:hidden; border:1px solid rgba(232,163,61,0.2);
+    aspect-ratio:4/3;
+  }
+  .map-box iframe{width:100%; height:100%; border:0; filter:grayscale(0.3) invert(0.92) contrast(0.9);}
+
+  /* CART / CHECKOUT DRAWER */
+  #cart-drawer{
+    position:fixed; top:0; right:0; height:100vh; width:min(420px,92vw);
+    background:var(--charcoal-2); border-left:1px solid rgba(232,163,61,0.25);
+    transform:translateX(100%); transition:transform 0.3s ease;
+    z-index:100; display:flex; flex-direction:column; padding:26px;
+  }
+  #cart-drawer.open{transform:translateX(0);}
+  #cart-drawer h2{font-size:1.4rem; margin-bottom:20px;}
+  #cart-items{flex-grow:1; overflow-y:auto; display:flex; flex-direction:column; gap:14px;}
+  .cart-line{display:flex; justify-content:space-between; align-items:center; font-size:0.92rem; gap:10px;}
+  .cart-line .qty-controls{display:flex; align-items:center; gap:8px;}
+  .cart-line button{background:none; border:1px solid var(--cream-dim); color:var(--cream); width:24px; height:24px; border-radius:50%; cursor:pointer;}
+  .cart-empty{color:var(--cream-dim); font-size:0.9rem;}
+  .cart-total{
+    display:flex; justify-content:space-between; padding-top:18px; margin-top:18px;
+    border-top:1px solid rgba(242,237,228,0.15); font-weight:700; font-size:1.1rem;
+  }
+  .checkout-note{font-size:0.78rem; color:var(--cream-dim); margin-top:10px; line-height:1.5;}
+  #close-cart{position:absolute; top:22px; right:26px; background:none; border:none; color:var(--cream); font-size:1.4rem; cursor:pointer;}
+  .pay-icons{display:flex; gap:10px; margin-top:14px;}
+  .pay-icons span{
+    border:1px solid rgba(242,237,228,0.25); border-radius:4px; padding:5px 10px; font-size:0.72rem; letter-spacing:0.03em; color:var(--cream-dim);
+  }
+
+  #overlay{position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:90; opacity:0; pointer-events:none; transition:opacity 0.3s ease;}
+  #overlay.open{opacity:1; pointer-events:auto;}
+
+  footer{
+    padding:6vh 6vw; text-align:center; color:var(--cream-dim); font-size:0.85rem;
+    border-top:1px solid rgba(242,237,228,0.08);
+  }
+
+  @media(max-width:800px){
+    .hero{grid-template-columns:1fr; padding-top:4vh;}
+    .about-grid{grid-template-columns:1fr;}
+    nav .nav-links{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ember-dot{animation:none; display:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="embers" id="embers"></div>
+
+<nav>
+  <div class="brand"><span class="brand-mark"></span> Kampala Flame Grill</div>
+  <div class="nav-links">
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#visit">Visit</a>
+  </div>
+  <button class="cart-btn" onclick="openCart()">Cart (<span id="cart-count">0</span>)</button>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">Kampala, Uganda</div>
+    <h1>Grilled over real charcoal, <em>served the Kampala way.</em></h1>
+    <p>Fries, roasted chicken, grilled chicken, sausages and eggs — cooked fresh to order and ready for pickup or delivery across Kampala.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView()">See the Menu</button>
+      <a class="btn-ghost" href="#visit">Find Us</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="grill-plate">Order online<br>for pickup or delivery</div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="section-head">
+    <div class="eyebrow">The Menu</div>
+    <h2>Five things. Done right.</h2>
+    <p>A short menu means every order comes off the grill fresh — nothing sitting under a heat lamp.</p>
+  </div>
+  <div class="menu-grid" id="menu-grid"></div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="eyebrow">Our Story</div>
+      <h2>A family grill, right in the heart of Kampala.</h2>
+      <p>Kampala Flame Grill started as a single charcoal stove and a simple idea: cook a short menu extremely well. Every piece of chicken is marinated overnight and grilled to order.</p>
+      <div class="fact-row">
+        <div><b>5</b><span>Menu items</span></div>
+        <div><b>Daily</b><span>Fresh marinade</span></div>
+        <div><b>Kampala</b><span>Pickup &amp; delivery</span></div>
+      </div>
+    </div>
+    <div class="map-box">
+      <iframe loading="lazy" src="https://www.google.com/maps?q=Kampala,Uganda&output=embed" title="Map of Kampala"></iframe>
+    </div>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="section-head">
+    <div class="eyebrow">Visit or Order</div>
+    <h2>Serving areas across Kampala City</h2>
+    <p>Open daily. Place your order below and pay securely by card or on delivery.</p>
+  </div>
+  <button class="btn-primary" onclick="openCart()">Start an Order</button>
+</section>
+
+<footer>
+  © <span id="year"></span> Kampala Flame Grill · Kampala, Uganda
+</footer>
+
+<div id="overlay" onclick="closeCart()"></div>
+<div id="cart-drawer">
+  <button id="close-cart" onclick="closeCart()" aria-label="Close cart">&times;</button>
+  <h2>Your Order</h2>
+  <div id="cart-items"></div>
+  <div class="cart-total">
+    <span>Total</span>
+    <span id="cart-total-amount">UGX 0</span>
+  </div>
+  <div class="pay-icons">
+    <span>VISA</span><span>Mastercard</span><span>Mobile Money</span>
+  </div>
+  <p class="checkout-note">Checkout is a placeholder — connect a payment gateway like Flutterwave or Pesapal here to accept real Visa/Mastercard payments. See the setup guide for details.</p>
+  <button class="btn-primary" style="margin-top:16px;width:100%;" onclick="checkout()">Checkout</button>
+</div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const menu = [
+  {id:1, name:"Golden Fries", price:8000, desc:"Hand-cut potatoes, double-fried, crisp and salted."},
+  {id:2, name:"Roasted Chicken", price:22000, desc:"Slow-roasted quarter chicken with Kampala spice rub."},
+  {id:3, name:"Grilled Chicken", price:24000, desc:"Charcoal-grilled chicken, marinated overnight, smoky finish."},
+  {id:4, name:"Sausages", price:12000, desc:"Grilled beef sausages, char-kissed and juicy."},
+  {id:5, name:"Eggs", price:6000, desc:"Fried or boiled eggs, made fresh to order."},
+];
+
+const grid = document.getElementById('menu-grid');
+menu.forEach(item=>{
+  const el = document.createElement('div');
+  el.className = 'dish';
+  el.innerHTML = `
+    <div class="dish-top"><h3>${item.name}</h3><span class="dish-price">UGX ${item.price.toLocaleString()}</span></div>
+    <p>${item.desc}</p>
+    <button class="dish-add" onclick="addToCart(${item.id})">Add to order</button>
+  `;
+  grid.appendChild(el);
+});
+
+let cart = {};
+
+function addToCart(id){
+  cart[id] = (cart[id]||0) + 1;
+  renderCart();
+  openCart();
+}
+function changeQty(id, delta){
+  cart[id] = (cart[id]||0) + delta;
+  if(cart[id] <= 0) delete cart[id];
+  renderCart();
+}
+function renderCart(){
+  const itemsEl = document.getElementById('cart-items');
+  const countEl = document.getElementById('cart-count');
+  const totalEl = document.getElementById('cart-total-amount');
+  const ids = Object.keys(cart);
+  let count = 0, total = 0;
+  itemsEl.innerHTML = '';
+  if(ids.length === 0){
+    itemsEl.innerHTML = '<p class="cart-empty">Your order is empty. Add something from the menu.</p>';
+  }
+  ids.forEach(id=>{
+    const item = menu.find(m=>m.id == id);
+    const qty = cart[id];
+    count += qty;
+    total += qty * item.price;
+    const line = document.createElement('div');
+    line.className = 'cart-line';
+    line.innerHTML = `
+      <span>${item.name}</span>
+      <div class="qty-controls">
+        <button onclick="changeQty(${id},-1)">−</button>
+        <span>${qty}</span>
+        <button onclick="changeQty(${id},1)">+</button>
+      </div>
+    `;
+    itemsEl.appendChild(line);
+  });
+  countEl.textContent = count;
+  totalEl.textContent = 'UGX ' + total.toLocaleString();
+}
+renderCart();
+
+function openCart(){
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+function closeCart(){
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+function checkout(){
+  if(Object.keys(cart).length === 0){ alert('Add an item to your order first.'); return; }
+  alert('This is a demo checkout. Connect a payment gateway (Flutterwave or Pesapal) to accept real payments here.');
+}
+
+// Ambient embers
+const embersEl = document.getElementById('embers');
+for(let i=0;i<14;i++){
+  const dot = document.createElement('div');
+  dot.className = 'ember-dot';
+  const size = 2 + Math.random()*4;
+  dot.style.width = size+'px';
+  dot.style.height = size+'px';
+  dot.style.left = (Math.random()*100)+'%';
+  dot.style.bottom = '-20px';
+  dot.style.animationDuration = (6+Math.random()*6)+'s';
+  dot.style.animationDelay = (Math.random()*8)+'s';
+  embersEl.appendChild(dot);
+}
+</script>
+
+</body>
+</html>
