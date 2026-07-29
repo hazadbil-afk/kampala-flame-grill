@@ -1,412 +1,345 @@
-<!DOCTYPE html>
+html<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kampala Flame Grill</title>
-<style>
-  :root{
-    --red:#D6001C;
-    --red-dark:#9E0016;
-    --gold:#FFC72C;
-    --gold-dark:#E8A900;
-    --char:#1A1714;
-    --char-2:#242019;
-    --smoke:#5C564C;
-    --cream:#FFF7E6;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--char);
-    color:var(--cream);
-    font-family:'Arial Black','Helvetica Neue',Arial,sans-serif;
-    line-height:1.5;
-  }
-  h1,h2,h3{font-family:'Arial Black',Arial,sans-serif; letter-spacing:-0.01em;}
-  a{color:inherit;text-decoration:none;}
-  img{max-width:100%;display:block;}
-  .stripe{
-    height:8px;
-    background:repeating-linear-gradient(120deg, var(--gold) 0 26px, var(--red) 26px 52px);
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampala Flame Grill | Elegant Minimalist Dining</title>
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0d0d0d;
+            --bg-secondary: #161616;
+            --bg-card: #1f1f1f;
+            --accent: #D4AF37; /* Luxury Gold */
+            --accent-hover: #F3E5AB;
+            --text-main: #f5f5f7;
+            --text-muted: #8e8e93;
+            --ios-radius: 20px;
+            --ios-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-  /* NAV */
-  nav{
-    position:sticky; top:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px 6vw;
-    background:var(--red);
-    box-shadow:0 4px 18px rgba(0,0,0,0.35);
-  }
-  .brand{display:flex;align-items:center;gap:12px;}
-  .brand-name{font-size:1.3rem; font-weight:900; text-transform:uppercase; color:var(--cream); line-height:1;}
-  .nav-links{display:flex;gap:26px;font-size:0.92rem;font-weight:700;text-transform:uppercase;color:var(--cream);}
-  .nav-links a:hover{color:var(--gold);}
-  .cart-btn{
-    background:var(--gold); color:var(--char); font-weight:900; text-transform:uppercase;
-    padding:10px 18px; border-radius:999px; border:2px solid var(--char); cursor:pointer;
-    font-size:0.85rem; box-shadow:2px 2px 0 var(--char);
-  }
-  .cart-btn:active{transform:translate(2px,2px); box-shadow:none;}
-  button:focus-visible, a:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
 
-  /* HERO */
-  .hero{
-    position:relative; overflow:hidden;
-    padding:7vh 6vw 8vh;
-    background:
-      radial-gradient(ellipse at 75% 20%, rgba(214,0,28,0.35), transparent 55%),
-      radial-gradient(ellipse at 15% 85%, rgba(255,199,44,0.12), transparent 50%),
-      var(--char);
-    display:grid; grid-template-columns:1.05fr 0.95fr; gap:40px; align-items:center;
-  }
-  .smoke-layer{position:absolute; inset:0; z-index:0; pointer-events:none;}
-  .ember-dot{
-    position:absolute; border-radius:50%;
-    background:var(--gold); opacity:0.85;
-    animation:rise linear infinite;
-  }
-  @keyframes rise{
-    0%{transform:translateY(0) scale(1); opacity:0;}
-    12%{opacity:0.9;}
-    100%{transform:translateY(-65vh) scale(0.25); opacity:0;}
-  }
-  .hero-copy{position:relative;z-index:1;}
-  .logo-badge{width:112px; height:112px; margin-bottom:20px;}
-  .hero h1{
-    font-size:clamp(2.8rem, 6.5vw, 5.2rem);
-    line-height:0.98; text-transform:uppercase; color:var(--cream);
-    text-shadow:3px 3px 0 var(--red-dark);
-    margin-bottom:10px;
-  }
-  .tagline{
-    font-size:1.05rem; font-weight:700; color:var(--gold); text-transform:uppercase;
-    letter-spacing:0.06em; margin-bottom:20px;
-  }
-  .hero p{max-width:46ch; color:#D9D2C4; font-size:1.05rem; margin-bottom:28px; font-family:Arial,sans-serif;}
-  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
-  .btn-primary{
-    background:var(--gold); color:var(--char); padding:16px 30px; border-radius:8px;
-    font-weight:900; font-size:0.95rem; border:3px solid var(--char); cursor:pointer;
-    text-transform:uppercase; box-shadow:4px 4px 0 var(--red-dark);
-  }
-  .btn-primary:active{transform:translate(3px,3px); box-shadow:none;}
-  .btn-ghost{
-    border:3px solid var(--cream); padding:16px 30px; border-radius:8px;
-    font-weight:900; font-size:0.95rem; text-transform:uppercase; color:var(--cream);
-  }
-  .hero-visual{
-    position:relative; z-index:1; border-radius:14px; overflow:hidden;
-    border:4px solid var(--gold);
-    box-shadow:6px 6px 0 var(--red-dark);
-    aspect-ratio:4/3;
-  }
-  .hero-visual img{width:100%; height:100%; object-fit:cover;}
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-  section{padding:8vh 6vw;}
-  .section-head{margin-bottom:44px; max-width:60ch;}
-  .kicker{color:var(--gold); text-transform:uppercase; font-size:0.8rem; font-weight:900; letter-spacing:0.14em; margin-bottom:10px;}
-  .section-head h2{font-size:clamp(2rem,3.6vw,2.9rem); color:var(--cream); text-transform:uppercase;}
-  .section-head p{color:#B9B2A3; margin-top:12px; font-family:Arial,sans-serif; font-weight:400; max-width:56ch;}
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-card);
+            border-radius: 4px;
+        }
 
-  .sauce-banner{
-    background:var(--gold); color:var(--char);
-    padding:16px 6vw; text-align:center; font-weight:900; text-transform:uppercase;
-    font-size:0.95rem; letter-spacing:0.02em;
-  }
+        /* Subtle Background Animation */
+        .ambient-glow {
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulseGlow 10s infinite alternate ease-in-out;
+        }
 
-  #menu{background:var(--char-2);}
-  .menu-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:24px;}
-  .dish{
-    background:var(--char);
-    border:2px solid rgba(255,199,44,0.25);
-    border-radius:12px; overflow:hidden;
-    display:flex; flex-direction:column;
-    transition:transform 0.2s ease, border-color 0.2s ease;
-  }
-  .dish:hover{transform:translateY(-5px); border-color:var(--gold);}
-  .dish-img{width:100%; aspect-ratio:4/3; overflow:hidden;}
-  .dish-img img{width:100%; height:100%; object-fit:cover;}
-  .dish-body{padding:20px; display:flex; flex-direction:column; gap:10px; flex-grow:1;}
-  .dish-top{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
-  .dish h3{font-size:1.15rem; color:var(--cream); text-transform:uppercase;}
-  .dish-price{color:var(--gold); font-weight:900; font-size:1.05rem; white-space:nowrap;}
-  .dish p{color:#B9B2A3; font-size:0.88rem; font-family:Arial,sans-serif; flex-grow:1;}
-  .side-note{
-    font-size:0.75rem; color:var(--gold); font-weight:700; text-transform:uppercase;
-    border-top:1px dashed rgba(255,199,44,0.3); padding-top:8px;
-  }
-  .dish-add{
-    align-self:flex-start; margin-top:4px;
-    background:var(--red); border:none; color:var(--cream);
-    padding:9px 18px; border-radius:999px; font-weight:900; cursor:pointer; font-size:0.82rem;
-    text-transform:uppercase;
-  }
-  .dish-add:hover{background:var(--gold); color:var(--char);}
+        @keyframes pulseGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-5%, 5%) scale(1.1); }
+        }
 
-  .info-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px;}
-  .info-card{
-    background:var(--char-2); border:2px solid rgba(255,199,44,0.2); border-radius:12px;
-    padding:26px; text-align:center;
-  }
-  .info-card .icon{font-size:2rem; margin-bottom:10px;}
-  .info-card h3{color:var(--gold); text-transform:uppercase; font-size:1rem; margin-bottom:8px;}
-  .info-card p{color:#D9D2C4; font-family:Arial,sans-serif; font-size:0.95rem;}
-  .info-card a{color:var(--gold); font-weight:700;}
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
 
-  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;}
-  .about-grid p{color:#B9B2A3; margin-bottom:16px; font-family:Arial,sans-serif;}
-  .map-box{border-radius:12px; overflow:hidden; border:3px solid var(--gold); aspect-ratio:4/3;}
-  .map-box iframe{width:100%; height:100%; border:0; filter:grayscale(0.4) invert(0.92) contrast(0.9);}
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
 
-  #cart-drawer{
-    position:fixed; top:0; right:0; height:100vh; width:min(420px,92vw);
-    background:var(--char-2); border-left:3px solid var(--gold);
-    transform:translateX(100%); transition:transform 0.3s ease;
-    z-index:100; display:flex; flex-direction:column; padding:26px;
-  }
-  #cart-drawer.open{transform:translateX(0);}
-  #cart-drawer h2{font-size:1.4rem; margin-bottom:20px; color:var(--cream); text-transform:uppercase;}
-  #cart-items{flex-grow:1; overflow-y:auto; display:flex; flex-direction:column; gap:14px;}
-  .cart-line{display:flex; justify-content:space-between; align-items:center; font-size:0.92rem; gap:10px; font-family:Arial,sans-serif;}
-  .cart-line .qty-controls{display:flex; align-items:center; gap:8px;}
-  .cart-line button{background:none; border:1px solid var(--cream); color:var(--cream); width:24px; height:24px; border-radius:50%; cursor:pointer;}
-  .cart-empty{color:#B9B2A3; font-size:0.9rem; font-family:Arial,sans-serif;}
-  .cart-total{
-    display:flex; justify-content:space-between; padding-top:18px; margin-top:18px;
-    border-top:1px solid rgba(255,247,230,0.15); font-weight:900; font-size:1.1rem; color:var(--cream);
-  }
-  .checkout-note{font-size:0.78rem; color:#B9B2A3; margin-top:10px; line-height:1.5; font-family:Arial,sans-serif;}
-  #close-cart{position:absolute; top:22px; right:26px; background:none; border:none; color:var(--cream); font-size:1.4rem; cursor:pointer;}
-  .pay-icons{display:flex; gap:10px; margin-top:14px;}
-  .pay-icons span{border:1px solid rgba(255,247,230,0.25); border-radius:4px; padding:5px 10px; font-size:0.72rem; color:#D9D2C4;}
-  #overlay{position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:90; opacity:0; pointer-events:none; transition:opacity 0.3s ease;}
-  #overlay.open{opacity:1; pointer-events:auto;}
+        .logo span {
+            color: var(--accent);
+        }
 
-  footer{padding:6vh 6vw; text-align:center; color:#8f8878; font-size:0.85rem; font-family:Arial,sans-serif;}
-  footer a{color:var(--gold); font-weight:700;}
+        .nav-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-  @media(max-width:800px){
-    .hero{grid-template-columns:1fr; padding-top:4vh;}
-    .about-grid{grid-template-columns:1fr;}
-    nav .nav-links{display:none;}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .ember-dot{display:none;}
-    html{scroll-behavior:auto;}
-  }
-</style>
-</head>
-<body>
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #34c759; /* Active green */
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px #34c759;
+        }
 
-<div class="stripe"></div>
-<nav>
-  <div class="brand">
-    <svg class="logo-badge" style="width:38px;height:38px;" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#D6001C" stroke="#FFC72C" stroke-width="6"/><path d="M60 20c8 14-4 18-4 30 0 8 6 12 12 12s12-6 12-14c10 10 12 24 4 36-8 11-24 15-37 8-13-7-19-22-13-36 4-9 11-13 14-22 3-8 3-12 12-14z" fill="#FFC72C"/></svg>
-    <span class="brand-name">Kampala Flame Grill</span>
-  </div>
-  <div class="nav-links">
-    <a href="#menu">Menu</a>
-    <a href="#about">About</a>
-    <a href="#visit">Visit</a>
-  </div>
-  <button class="cart-btn" onclick="openCart()">Cart (<span id="cart-count">0</span>)</button>
-</nav>
+        /* Hero Section */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+            margin-top: 80px;
+        }
 
-<section class="hero">
-  <div class="smoke-layer" id="embers"></div>
-  <div class="hero-copy">
-    <svg class="logo-badge" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#D6001C" stroke="#FFC72C" stroke-width="6"/><path d="M60 20c8 14-4 18-4 30 0 8 6 12 12 12s12-6 12-14c10 10 12 24 4 36-8 11-24 15-37 8-13-7-19-22-13-36 4-9 11-13 14-22 3-8 3-12 12-14z" fill="#FFC72C"/><text x="60" y="103" text-anchor="middle" font-family="Arial Black" font-size="14" fill="#FFF7E6">KAMPALA</text></svg>
-    <h1>Kampala<br>Flame Grill</h1>
-    <div class="tagline">Fresh off the charcoal, fast to your door</div>
-    <p>Fries, roasted chicken, grilled chicken, sausages and eggs — every meal comes free with mayo and our house tomato, green chilli &amp; garlic sauce.</p>
-    <div class="hero-ctas">
-      <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView()">See the Menu</button>
-      <a class="btn-ghost" href="tel:0769074407">Call to Order</a>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <img src="https://images.pexels.com/photos/9646859/pexels-photo-9646859.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Chicken grilling over smoky charcoal">
-  </div>
-</section>
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s forwards cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+        }
 
-<div class="sauce-banner">🔥 Every meal comes with free mayo + tomato, green chilli &amp; garlic sauce</div>
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.2s forwards cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+        }
 
-<section id="menu">
-  <div class="section-head">
-    <div class="kicker">The Menu</div>
-    <h2>Five things. Done right.</h2>
-    <p>A short menu means every order comes off the grill fresh — nothing sitting under a heat lamp.</p>
-  </div>
-  <div class="menu-grid" id="menu-grid"></div>
-</section>
+        .cta-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 16px 36px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.2s forwards cubic-bezier(0.16, 1, 0.3, 1) 0.6s;
+        }
 
-<section>
-  <div class="info-grid">
-    <div class="info-card">
-      <div class="icon">🕕</div>
-      <h3>Operating Hours</h3>
-      <p>6:00 PM – 6:00 AM<br>Monday to Sunday</p>
-    </div>
-    <div class="info-card">
-      <div class="icon">📞</div>
-      <h3>Direct Orders</h3>
-      <p><a href="tel:0769074407">0769 074 407</a></p>
-    </div>
-    <div class="info-card">
-      <div class="icon">📍</div>
-      <h3>Serving</h3>
-      <p>Pickup &amp; delivery across Kampala City</p>
-    </div>
-  </div>
-</section>
+        .cta-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            box-shadow: 0 8px 25px rgba(214, 175, 55, 0.2);
+        }
 
-<section id="about">
-  <div class="about-grid">
-    <div>
-      <div class="kicker">Our Story</div>
-      <h2>A family grill, right in the heart of Kampala.</h2>
-      <p>Kampala Flame Grill started as a single charcoal stove and a simple idea: cook a short menu extremely well. Every piece of chicken is marinated overnight and grilled to order, and every order comes with our free house sides — creamy mayo and a fresh-blended tomato, green chilli and garlic sauce.</p>
-    </div>
-    <div class="map-box">
-      <iframe loading="lazy" src="https://www.google.com/maps?q=Kampala,Uganda&output=embed" title="Map of Kampala"></iframe>
-    </div>
-  </div>
-</section>
+        /* Menu Grid Section */
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5% 100px 5%;
+            position: relative;
+            z-index: 1;
+        }
 
-<section id="visit">
-  <div class="section-head">
-    <div class="kicker">Visit or Order</div>
-    <h2>Open nightly, 6PM – 6AM</h2>
-    <p>Call <a href="tel:0769074407" style="color:var(--gold);font-weight:700;">0769 074 407</a> for direct orders, or place your order below and pay by card or on delivery.</p>
-  </div>
-  <button class="btn-primary" onclick="openCart()">Start an Order</button>
-</section>
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 1px;
+        }
 
-<footer>
-  © <span id="year"></span> Kampala Flame Grill · Kampala, Uganda · <a href="tel:0769074407">0769 074 407</a>
-</footer>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+        }
 
-<div id="overlay" onclick="closeCart()"></div>
-<div id="cart-drawer">
-  <button id="close-cart" onclick="closeCart()" aria-label="Close cart">&times;</button>
-  <h2>Your Order</h2>
-  <div id="cart-items"></div>
-  <div class="cart-total">
-    <span>Total</span>
-    <span id="cart-total-amount">UGX 0</span>
-  </div>
-  <div class="pay-icons">
-    <span>VISA</span><span>Mastercard</span><span>Mobile Money</span>
-  </div>
-  <p class="checkout-note">Checkout is a placeholder — connect a payment gateway like Flutterwave or Pesapal here to accept real Visa/Mastercard payments.</p>
-  <button class="btn-primary" style="margin-top:16px;width:100%;" onclick="checkout()">Checkout</button>
-</div>
+        .menu-card {
+            background: var(--bg-secondary);
+            border-radius: var(--ios-radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
 
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
+        .menu-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(214, 175, 55, 0.2);
+            box-shadow: var(--ios-shadow);
+        }
 
-const menu = [
-  {id:1, name:"Golden Fries", price:8000, desc:"Hand-cut potatoes, double-fried, crisp and salted.",
-   img:"https://images.pexels.com/photos/11485199/pexels-photo-11485199.jpeg?auto=compress&cs=tinysrgb&w=600"},
-  {id:2, name:"Roasted Chicken", price:22000, desc:"Slow-roasted quarter chicken with Kampala spice rub.",
-   img:"https://images.pexels.com/photos/2994900/pexels-photo-2994900.jpeg?auto=compress&cs=tinysrgb&w=600"},
-  {id:3, name:"Grilled Chicken", price:24000, desc:"Charcoal-grilled chicken, marinated overnight, smoky finish.",
-   img:"https://images.pexels.com/photos/106343/pexels-photo-106343.jpeg?auto=compress&cs=tinysrgb&w=600"},
-  {id:4, name:"Sausages", price:12000, desc:"Grilled beef sausages, char-kissed and juicy.",
-   img:"https://images.pexels.com/photos/9646859/pexels-photo-9646859.jpeg?auto=compress&cs=tinysrgb&w=600"},
-  {id:5, name:"Eggs", price:6000, desc:"Fried or boiled eggs, made fresh to order.",
-   img:"https://images.pexels.com/photos/2673353/pexels-photo-2673353.jpeg?auto=compress&cs=tinysrgb&w=600"},
-];
+        .img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            background: #111;
+            overflow: hidden;
+        }
 
-const grid = document.getElementById('menu-grid');
-menu.forEach(item=>{
-  const el = document.createElement('div');
-  el.className = 'dish';
-  el.innerHTML = `
-    <div class="dish-img"><img src="${item.img}" alt="${item.name}" loading="lazy"></div>
-    <div class="dish-body">
-      <div class="dish-top"><h3>${item.name}</h3><span class="dish-price">UGX ${item.price.toLocaleString()}</span></div>
-      <p>${item.desc}</p>
-      <div class="side-note">+ Free mayo &amp; tomato-chilli-garlic sauce</div>
-      <button class="dish-add" onclick="addToCart(${item.id})">Add to order</button>
-    </div>
-  `;
-  grid.appendChild(el);
-});
+        .menu-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+            filter: brightness(0.88) contrast(1.05);
+        }
 
-let cart = {};
+        .menu-card:hover .menu-img {
+            transform: scale(1.05);
+            filter: brightness(1);
+        }
 
-function addToCart(id){
-  cart[id] = (cart[id]||0) + 1;
-  renderCart();
-  openCart();
-}
-function changeQty(id, delta){
-  cart[id] = (cart[id]||0) + delta;
-  if(cart[id] <= 0) delete cart[id];
-  renderCart();
-}
-function renderCart(){
-  const itemsEl = document.getElementById('cart-items');
-  const countEl = document.getElementById('cart-count');
-  const totalEl = document.getElementById('cart-total-amount');
-  const ids = Object.keys(cart);
-  let count = 0, total = 0;
-  itemsEl.innerHTML = '';
-  if(ids.length === 0){
-    itemsEl.innerHTML = '<p class="cart-empty">Your order is empty. Add something from the menu.</p>';
-  }
-  ids.forEach(id=>{
-    const item = menu.find(m=>m.id == id);
-    const qty = cart[id];
-    count += qty;
-    total += qty * item.price;
-    const line = document.createElement('div');
-    line.className = 'cart-line';
-    line.innerHTML = `
-      <span>${item.name}</span>
-      <div class="qty-controls">
-        <button onclick="changeQty(${id},-1)">−</button>
-        <span>${qty}</span>
-        <button onclick="changeQty(${id},1)">+</button>
-      </div>
-    `;
-    itemsEl.appendChild(line);
-  });
-  countEl.textContent = count;
-  totalEl.textContent = 'UGX ' + total.toLocaleString();
-}
-renderCart();
+        .card-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
 
-function openCart(){
-  document.getElementById('cart-drawer').classList.add('open');
-  document.getElementById('overlay').classList.add('open');
-}
-function closeCart(){
-  document.getElementById('cart-drawer').classList.remove('open');
-  document.getElementById('overlay').classList.remove('open');
-}
-function checkout(){
-  if(Object.keys(cart).length === 0){ alert('Add an item to your order first.'); return; }
-  alert('This is a demo checkout. Connect a payment gateway (Flutterwave or Pesapal) to accept real payments here.');
-}
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+        }
 
-const embersEl = document.getElementById('embers');
-for(let i=0;i<14;i++){
-  const dot = document.createElement('div');
-  dot.className = 'ember-dot';
-  const size = 2 + Math.random()*4;
-  dot.style.width = size+'px';
-  dot.style.height = size+'px';
-  dot.style.left = (Math.random()*100)+'%';
-  dot.style.bottom = '-20px';
-  dot.style.animationDuration = (6+Math.random()*6)+'s';
-  dot.style.animationDelay = (Math.random()*8)+'s';
-  embersEl.appendChild(dot);
-}
-</script>
+        .item-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
 
-</body>
-</html>
+        .item-price {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+
+        .item-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .add-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition-smooth);
+        }
+
+        .add-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-primary);
+            border-color: var(--text-main);
+        }
+
+        /* Integrated Premium Payment Overlay/Footer Bar */
+        .cart-bar {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(150px);
+            background: rgba(22, 22, 22, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 15px 35px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            z-index: 90;
+            box-shadow: var(--ios-shadow);
+            transition: var(--transition-smooth);
+        }
+
+        .cart-bar.active {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .cart-info {
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .cart-info span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .checkout-btn {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .checkout-btn:hover {
+Use code with caution.background: var(--text-main);box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);}/* iOS Smooth Dialog Popup overlay */.modal-overlay {position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.6);backdrop-filter: blur(15px);-webkit-backdrop-filter: blur(15px);z-index: 1000;display: flex;justify-content: center;align-items: center;opacity: 0;pointer-events: none;transition: opacity 0.4s ease;}.modal-overlay.active {opacity: 1;pointer-events: auto;}.ios-popup {background: var(--bg-secondary);border: 1px solid rgba(255, 255, 255, 0.08);width: 90%;max-width: 440px;border-radius: var(--ios-radius);padding: 35px;box-shadow: var(--ios-shadow);text-align: center;transform: scale(0.85) translateY(30px);transition: var(--transition-smooth);}.modal-overlay.active .ios-popup {transform: scale(1) translateY(0);}.ios-popup h2 {font-family: 'Cormorant Garamond', serif;font-size: 2rem;margin-bottom: 15px;font-weight: 400;}.ios-popup p {color: var(--text-muted);font-size: 0.95rem;margin-bottom: 25px;font-weight: 300;}.popup-phone {font-size: 1.6rem;color: var(--accent);font-weight: 600;letter-spacing: 1px;margin-bottom: 30px;display: block;text-decoration: none;}/* Payment Icons Integration Framework */.payment-methods-title {font-size: 0.75rem;text-transform: uppercase;color: var(--text-muted);letter-spacing: 2px;margin-bottom: 12px;}.payment-icons {display: flex;justify-content: center;gap: 15px;margin-bottom: 35px;}.pay-badge {background: rgba(255, 255, 255, 0.03);border: 1px solid rgba(255, 255, 255, 0.06);padding: 8px 14px;border-radius: 10px;font-size: 0.75rem;font-weight: 500;color: #fff;letter-spacing: 0.5px;}.pay-badge.momo { color: #ffcc00; }.pay-badge.visa { color: #1a1aff; }.pay-badge.mastercard { color: #ff5f00; }.close-btn {background: var(--text-main);color: var(--bg-primary);border: none;padding: 14px 0;width: 100%;border-radius: 30px;font-size: 0.9rem;font-weight: 500;cursor: pointer;transition: var(--transition-smooth);}.close-btn:hover {background: var(--accent);}/* Animations */@keyframes fadeInUp {to {opacity: 1;transform: translateY(0);}}/* Responsive Adjustments */@media (max-width: 768px) {header { padding: 20px 5%; }.nav-meta { display: none; }.grid { gap: 25px; }.cart-bar {width: 90%;gap: 20px;padding: 15px 20px;justify-content: space-between;}}Selected: 0 ItemsPlace OrderComplete Your OrderOur kitchen operates live from 6:00 PM to 6:00 AM. Click the number below to route your checkout placement directly via phone call or instant mobile dispatch.0769074407Supported GatewaysVisaMastercardMobile MoneyReturn to Menu// High fidelity minimal data objects. Images prioritize solo product styling.// Pricing is structured natively in UGX based on current premium fast-casual averages.const menuItems = [{name: "Roasted Chicken",price: "UGX 22,000",desc: "Slow-turned golden rotisserie chicken profile. Glazed beautifully and served with artisan house mayonnaise and rich tomato ketchup.",img: "unsplash.com"},{name: "Grilled Chicken",price: "UGX 24,000",desc: "Flame-kissed over open charcoal grids for distinct smokiness. Finished delicately, accompanied with signature mayonnaise and ketchup.",img: "unsplash.com"},{name: "The Premium Rolex",price: "UGX 10,000",desc: "The timeless Kampala masterpiece. Prepared gracefully using two soft layered chapatis wrapped around four beautifully seasoned fried eggs.",img: "unsplash.com"},{name: "French Fries",price: "UGX 9,000",desc: "Hand-cut, clean-drained premium potatoes crisped to a fine golden edge. Served instantly alongside elegant presentation pairings of mayonnaise and ketchup.",img: "unsplash.com"},{name: "Roasted Chicken Liver",price: "UGX 14,000",desc: "Delicately seared iron-rich delicacies prepared over glowing embers with subtle spices. Includes matching mayonnaise and smooth ketchup dips.",img: "unsplash.com"},{name: "Roasted Chicken Gizzards",price: "UGX 15,000",desc: "Firm, rich, textured bites skewered perfectly and fire-roasted to lock in robust flavors. Served with classic mayonnaise and ketchup.",img: "unsplash.com"},{name: "Gourmet Sausages",price: "UGX 8,000",desc: "Plump premium sausages cooked over precise heat until beautifully browned. Accompanied by elegant portions of house mayonnaise and clean ketchup.",img: "unsplash.com"}];let selectedCount = 0;function renderMenu() {const grid = document.getElementById('menu-grid');grid.innerHTML = menuItems.map((item, index) => <div class="menu-card"> <div class="img-wrapper"> <img src="${item.img}" alt="${item.name}" class="menu-img" loading="lazy"> </div> <div class="card-content"> <div class="card-header"> <h3 class="item-name">${item.name}</h3> <span class="item-price">${item.price}</span> </div> <p class="item-desc">${item.desc}</p> <button class="add-btn" onclick="updateCart(1)">Add To Order</button> </div> </div>).join('');}function scrollToMenu() {document.getElementById('menu-section').scrollIntoView({ behavior: 'smooth' });}function updateCart(amount) {selectedCount += amount;const cartBar = document.getElementById('cartBar');const cartCount = document.getElementById('cartCount');cartCount.innerText = ${selectedCount} ${selectedCount === 1 ? 'Item' : 'Items'};if (selectedCount > 0) {cartBar.classList.add('active');}}function openOrderModal() {document.getElementById('orderModal').classList.add('active');}function closeOrderModal(e) {// Closes modal safely via background or cancel clickdocument.getElementById('orderModal').classList.remove('active');}// Execution anchor on window paintwindow.addEventListener('DOMContentLoaded', renderMenu);
