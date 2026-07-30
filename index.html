@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kampala Flame Grill | Elegant Minimalist Dining</title>
     <!-- Premium Google Fonts -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
     
     <style>
         :root {
@@ -339,6 +339,262 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: var(--transition-smooth);
+    /* iOS Smooth Dialog Popup overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
         }
 
-        .checkout-btn:hover {
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .ios-popup {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            width: 90%;
+            max-width: 440px;
+            border-radius: var(--ios-radius);
+            padding: 35px;
+            box-shadow: var(--ios-shadow);
+            text-align: center;
+            transform: scale(0.85) translateY(30px);
+            transition: var(--transition-smooth);
+        }
+
+        .modal-overlay.active .ios-popup {
+            transform: scale(1) translateY(0);
+        }
+
+        .ios-popup h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .ios-popup p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .popup-phone {
+            font-size: 1.6rem;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            display: block;
+            text-decoration: none;
+        }
+
+        /* Payment Icons Integration Framework */
+        .payment-methods-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .pay-badge {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        
+        .pay-badge.momo { color: #ffcc00; }
+        .pay-badge.visa { color: #1a1aff; }
+        .pay-badge.mastercard { color: #ff5f00; }
+
+        .close-btn {
+            background: var(--text-main);
+            color: var(--bg-primary);
+            border: none;
+            padding: 14px 0;
+            width: 100%;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .close-btn:hover {
+            background: var(--accent);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header { padding: 20px 5%; }
+            .nav-meta { display: none; }
+            .grid { gap: 25px; }
+            .cart-bar {
+                width: 90%;
+                gap: 20px;
+                padding: 15px 20px;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Kampala<span>FlameGrill</span></a>
+        <div class="nav-meta">
+            <span class="status-dot"></span> Nightly: 6 PM - 6 AM
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Nightly Flames.<br>Luxurious Taste.</h1>
+        <p>Kampala’s premier dusk-to-dawn minimalist kitchen. Delivering pristine street-side profiles refined with fine-dining execution directly to your location.</p>
+        <button class="cta-btn" onclick="scrollToMenu()">Explore The Menu</button>
+    </section>
+
+    <section class="menu-container" id="menu-section">
+        <h2 class="section-title">The Curated Menu</h2>
+        <div class="grid" id="menu-grid">
+            <!-- JavaScript dynamically renders objects here safely -->
+        </div>
+    </section>
+
+    <!-- iOS Interactive Cart/Checkout Bar -->
+    <div class="cart-bar" id="cartBar">
+        <div class="cart-info">Selected: <span id="cartCount">0 Items</span></div>
+        <button class="checkout-btn" onclick="openOrderModal()">Place Order</button>
+    </div>
+
+    <!-- Apple-style Smooth Popup Dialog Box -->
+    <div class="modal-overlay" id="orderModal" onclick="closeOrderModal(event)">
+        <div class="ios-popup" onclick="event.stopPropagation()">
+            <h2>Complete Your Order</h2>
+            <p>Our kitchen operates live from 6:00 PM to 6:00 AM. Click the number below to route your checkout placement directly via phone call or instant mobile dispatch.</p>
+            
+            <a href="tel:0769074407" class="popup-phone">0769074407</a>
+            
+            <div class="payment-methods-title">Supported Gateways</div>
+            <div class="payment-icons">
+                <span class="pay-badge visa">Visa</span>
+                <span class="pay-badge mastercard">Mastercard</span>
+                <span class="pay-badge momo">Mobile Money</span>
+            </div>
+
+            <button class="close-btn" onclick="closeOrderModal(null)">Return to Menu</button>
+        </div>
+    </div>
+
+    <script>
+        // High fidelity minimal data objects. Images prioritize solo product styling.
+        // Pricing is structured natively in UGX based on current premium fast-casual averages.
+        const menuItems = [
+            {
+                name: "Roasted Chicken",
+                price: "UGX 22,000",
+                desc: "Slow-turned golden rotisserie chicken profile. Glazed beautifully and served with artisan house mayonnaise and rich tomato ketchup.",
+                img: "https://unsplash.com"
+            },
+            {
+                name: "Grilled Chicken",
+                price: "UGX 24,000",
+                desc: "Flame-kissed over open charcoal grids for distinct smokiness. Finished delicately, accompanied with signature mayonnaise and ketchup.",
+                img: "https://unsplash.com"
+            },
+            {
+                name: "The Premium Rolex",
+                price: "UGX 10,000",
+                desc: "The timeless Kampala masterpiece. Prepared gracefully using two soft layered chapatis wrapped around four beautifully seasoned fried eggs.",
+                img: "https://unsplash.com"
+            },
+            {
+                name: "French Fries",
+                price: "UGX 9,000",
+                desc: "Hand-cut, clean-drained premium potatoes crisped to a fine golden edge. Served instantly alongside elegant presentation pairings of mayonnaise and ketchup.",
+                img: "https://unsplash.com"
+            },
+            {
+                name: "Roasted Chicken Liver",
+                price: "UGX 14,000",
+                desc: "Delicately seared iron-rich delicacies prepared over glowing embers with subtle spices. Includes matching mayonnaise and smooth ketchup dips.",
+                img: "https://unsplash.com"
+            },
+            {
+                name: "Roasted Chicken Gizzards",
+                price: "UGX 15,000",
+                desc: "Firm, rich, textured bites skewered perfectly and fire-roasted to lock in robust flavors. Served with classic mayonnaise and ketchup.",
+                img: "https://unsplash.com"
+            },
+            {
+                name: "Gourmet Sausages",
+                price: "UGX 8,000",
+                desc: "Plump premium sausages cooked over precise heat until beautifully browned. Accompanied by elegant portions of house mayonnaise and clean ketchup.",
+                img: "https://unsplash.com"
+            }
+        ];
+
+        let selectedCount = 0;
+
+        function renderMenu() {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = menuItems.map((item, index) => `
+                <div class="menu-card">
+                    <div class="img-wrapper">
+                        <img src="${item.img}" alt="${item.name}" class="menu-img" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="item-name">${item.name}</h3>
+                            <span class="item-price">${item.price}</span>
+                        </div>
+                        <p class="item-desc">${item.desc}</p>
+                        <button class="add-btn" onclick="updateCart(1)">Add To Order</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function scrollToMenu() {
+            document.getElementById('menu-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateCart(amount) {
+            selectedCount += amount;
+            const cartBar = document.getElementById('cartBar');
+const cartCount = document.getElementById('cartCount');cartCount.innerText = ${selectedCount} ${selectedCount === 1 ? 'Item' : 'Items'};if (selectedCount > 0) {cartBar.classList.add('active');}}function openOrderModal() {document.getElementById('orderModal').classList.add('active');}function closeOrderModal(e) {document.getElementById('orderModal').classList.remove('active');}window.addEventListener('DOMContentLoaded', renderMenu);
