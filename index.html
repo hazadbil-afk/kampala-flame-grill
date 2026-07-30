@@ -3,95 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kampala Flame Grill | Elegant Minimalist Dining</title>
+    <title>Kampala Flame Grill | Fresh & Fast Fried Chicken</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-p: #0d0d0d; --bg-s: #161616; --accent: #D4AF37; --txt: #f5f5f7; --mute: #8e8e93; }
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
-        body { background:var(--bg-p); color:var(--txt); overflow-x:hidden; line-height:1.6; padding-bottom:120px; }
-        header { position:fixed; top:0; width:100%; padding:20px 5%; display:flex; justify-content:space-between; align-items:center; z-index:100; background:rgba(13,13,13,0.85); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.03); }
-        .logo { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600; letter-spacing:1px; color:var(--txt); text-transform:uppercase; text-decoration:none; }
-        .logo span { color:var(--accent); }
-        .nav-meta { font-size:0.8rem; color:var(--mute); text-transform:uppercase; display:flex; align-items:center; gap:10px; }
-        .dot { width:8px; height:8px; background:#34c759; border-radius:50%; box-shadow:0 0 8px #34c759; }
-        .hero { min-height:75vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:0 20px; margin-top:60px; }
-        .hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.3rem, 6vw, 4.2rem); font-weight:400; line-height:1.2; margin-bottom:15px; }
-        .hero p { font-size:clamp(0.9rem, 2vw, 1.1rem); color:var(--mute); max-width:550px; margin-bottom:35px; font-weight:300; }
-        .cta-btn { background:transparent; border:1px solid var(--accent); color:var(--accent); padding:14px 32px; font-size:0.85rem; letter-spacing:1px; text-transform:uppercase; border-radius:40px; cursor:pointer; transition:0.3s ease; }
-        .cta-btn:hover { background:var(--accent); color:var(--bg-p); }
-        .menu-container { max-width:1100px; margin:0 auto; padding:0 5%; }
-        .section-title { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:400; text-align:center; margin-bottom:40px; }
-        .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:30px; }
-        .card { background:var(--bg-s); border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,0.02); display:flex; flex-direction:column; height:100%; transition:transform 0.4s cubic-bezier(0.16,1,0.3,1); }
-        .card:hover { transform:translateY(-5px); border-color:rgba(214,175,55,0.2); }
-        .img-w { width:100%; height:220px; background:#111; overflow:hidden; }
-        .menu-img { width:100%; height:100%; object-fit:cover; filter:brightness(0.85); transition:0.4s ease; }
-        .card:hover .menu-img { transform:scale(1.03); filter:brightness(1); }
-        .card-c { padding:20px; display:flex; flex-direction:column; flex-grow:1; }
-        .card-h { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
-        .i-name { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:600; }
-        .i-price { color:var(--accent); font-weight:500; font-size:1rem; }
-        .i-desc { font-size:0.8rem; color:var(--mute); margin-bottom:20px; flex-grow:1; font-weight:300; }
-        .add-btn { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); color:var(--txt); padding:10px; border-radius:30px; cursor:pointer; width:100%; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; transition:0.2s ease; }
-        .add-btn:hover { background:var(--txt); color:var(--bg-p); }
-        .cart-bar { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(150px); background:rgba(22,22,22,0.9); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.08); padding:12px 25px; border-radius:40px; display:flex; align-items:center; gap:25px; z-index:90; box-shadow:0 12px 30px rgba(0,0,0,0.5); transition:transform 0.4s cubic-bezier(0.16,1,0.3,1); }
-        .cart-bar.active { transform:translateX(-50%) translateY(0); }
-        .cart-i { font-size:0.85rem; }
-        .cart-i span { color:var(--accent); font-weight:600; }
-        .chk-btn { background:var(--accent); color:var(--bg-p); border:none; padding:10px 20px; border-radius:30px; font-size:0.75rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; }
-        .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px); z-index:1000; display:flex; justify-content:center; align-items:center; opacity:0; pointer-events:none; transition:opacity 0.4s ease; }
-        .overlay.active { opacity:1; pointer-events:auto; }
-        .popup { background:var(--bg-s); border:1px solid rgba(255,255,255,0.08); width:90%; max-width:380px; border-radius:20px; padding:25px; text-align:center; transform:scale(0.9); transition:transform 0.4s cubic-bezier(0.16,1,0.3,1); }
-        .overlay.active .popup { transform:scale(1); }
-        .popup h2 { font-family:'Cormorant Garamond',serif; font-size:1.7rem; margin-bottom:10px; font-weight:400; }
-        .popup p { color:var(--mute); font-size:0.85rem; margin-bottom:15px; }
-        .phone-l { font-size:1.4rem; color:var(--accent); font-weight:600; margin-bottom:20px; display:block; text-decoration:none; }
-        .p-title { font-size:0.65rem; text-transform:uppercase; color:var(--mute); letter-spacing:2px; margin-bottom:10px; }
-        .p-icons { display:flex; justify-content:center; gap:10px; margin-bottom:25px; }
-        .badge { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); padding:5px 10px; border-radius:8px; font-size:0.65rem; }
-        .badge.momo { color:#ffcc00; } .badge.visa { color:#1a1aff; } .badge.mc { color:#ff5f00; }
-        .cls-btn { background:var(--txt); color:var(--bg-p); border:none; padding:12px 0; width:100%; border-radius:30px; font-size:0.8rem; font-weight:500; cursor:pointer; }
-        @media (max-width:768px) { .nav-meta { display:none; } .cart-bar { width:90%; justify-content:space-between; } }
+        :root {
+            --red: #E4002B; /* KFC Crimson Red */
+            --dark-red: #B30021;
+            --white: #FFFFFF;
+            --light-grey: #F4F4F6;
+            --border-grey: #E2E2E6;
+            --text-dark: #1A1A1E;
+            --text-muted: #62626A;
+            --ios-radius: 16px;
+            --shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--light-grey); color: var(--text-dark); line-height: 1.5; padding-bottom: 100px; }
+        
+        header { position: sticky; top: 0; background: var(--white); border-bottom: 3px solid var(--red); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--red); text-transform: uppercase; text-decoration: none; letter-spacing: 0.5px; }
+        .logo span { color: var(--text-dark); }
+        .nav-meta { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+        .dot { width: 8px; height: 8px; background: #34C759; border-radius: 50%; display: inline-block; }
+
+        .hero { background: var(--white); padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--border-grey); }
+        .hero h1 { font-family: 'Oswald', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); text-transform: uppercase; color: var(--text-dark); line-height: 1.1; margin-bottom: 12px; }
+        .hero h1 span { color: var(--red); }
+        .hero p { font-size: clamp(1rem, 1.8vw, 1.2rem); color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 400; }
+
+        .menu-container { max-width: 1200px; margin: 40px auto 0 auto; padding: 0 5%; }
+        .section-title { font-family: 'Oswald', sans-serif; font-size: 2.2rem; text-transform: uppercase; margin-bottom: 30px; border-left: 5px solid var(--red); padding-left: 15px; color: var(--text-dark); }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: var(--white); border-radius: var(--ios-radius); overflow: hidden; border: 1px solid var(--border-grey); display: flex; flex-direction: column; height: 100%; box-shadow: var(--shadow); transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-3px); }
+        
+        .img-w { width: 100%; height: 210px; background: #E2E2E6; overflow: hidden; position: relative; }
+        .menu-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .card-c { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+        .i-name { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+        .i-price { color: var(--red); font-weight: 700; font-size: 1.2rem; margin-bottom: 10px; font-family: 'Oswald', sans-serif; }
+        .i-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
+        
+        .add-btn { background: var(--red); color: var(--white); border: none; padding: 12px; border-radius: 25px; cursor: pointer; width: 100%; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; transition: background 0.2s ease; }
+        .add-btn:hover { background: var(--dark-red); }
+
+        .cart-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%) translateY(150px); background: var(--white); border: 2px solid var(--red); padding: 12px 30px; border-radius: 40px; display: flex; align-items: center; gap: 30px; z-index: 90; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .cart-bar.active { transform: translateX(-50%) translateY(0); }
+        .cart-i { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); }
+        .cart-i span { color: var(--red); font-weight: 700; }
+        .chk-btn { background: var(--red); color: var(--white); border: none; padding: 10px 24px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+        .chk-btn:hover { background: var(--dark-red); }
+
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .overlay.active { opacity: 1; pointer-events: auto; }
+        .popup { background: var(--white); border-top: 6px solid var(--red); width: 90%; max-width: 400px; border-radius: var(--ios-radius); padding: 30px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .popup h2 { font-family: 'Oswald', sans-serif; font-size: 2rem; text-transform: uppercase; margin-bottom: 10px; color: var(--text-dark); }
+        .popup p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+        .phone-l { font-family: 'Oswald', sans-serif; font-size: 1.8rem; color: var(--red); font-weight: 700; margin-bottom: 25px; display: block; text-decoration: none; }
+        
+        .p-title { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; margin-bottom: 12px; }
+        .p-icons { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .badge { background: var(--light-grey); border: 1px solid var(--border-grey); padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; color: var(--text-dark); }
+        .cls-btn { background: var(--text-dark); color: var(--white); border: none; padding: 12px 0; width: 100%; border-radius: 30px; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
+        
+        @media (max-width: 768px) { .nav-meta { display: none; } .cart-bar { width: 90%; justify-content: space-between; padding: 12px 20px; gap: 15px; } }
     </style>
 </head>
 <body>
+
     <header>
         <a href="#" class="logo">Kampala<span>FlameGrill</span></a>
-        <div class="nav-meta"><span class="dot"></span> Nightly: 6 PM - 6 AM</div>
+        <div class="nav-meta"><span class="dot"></span> 6 PM - 6 AM</div>
     </header>
+
     <section class="hero">
-        <h1>Nightly Flames.<br>Luxurious Taste.</h1>
-        <p>Kampala’s premier dusk-to-dawn minimalist kitchen. Delivering pristine street-side profiles refined with fine-dining execution directly to your location.</p>
-        <button class="cta-btn" onclick="document.getElementById('menu-section').scrollIntoView({behavior:'smooth'})">Explore The Menu</button>
+        <h1>Hot 'N Flame <span>Grilled Chicken</span></h1>
+        <p>Kampala's late-night fast-casual kitchen. Fresh ingredients, blazing flame-grills, and lightning-fast preparation delivered directly to your doorstep.</p>
     </section>
-    <section class="menu-container" id="menu-section">
-        <h2 class="section-title">The Curated Menu</h2>
+
+    <main class="menu-container">
+        <h2 class="section-title">Our Menu</h2>
         <div class="grid" id="menu-grid"></div>
-    </section>
+    </main>
+
     <div class="cart-bar" id="cartBar">
-        <div class="cart-i">Selected: <span id="cartCount">0 Items</span></div>
-        <button class="chk-btn" onclick="document.getElementById('orderModal').classList.add('active')">Place Order</button>
+        <div class="cart-i">Your Bucket: <span id="cartCount">0 Items</span></div>
+        <button class="chk-btn" onclick="document.getElementById('orderModal').classList.add('active')">Checkout</button>
     </div>
+
     <div class="overlay" id="orderModal" onclick="document.getElementById('orderModal').classList.remove('active')">
         <div class="popup" onclick="event.stopPropagation()">
-            <h2>Complete Your Order</h2>
-            <p>Our kitchen operates live from 6:00 PM to 6:00 AM. Click below to place your order via a direct phone dispatch call instantly.</p>
+            <h2>Call To Place Order</h2>
+            <p>We are firing up your order live! Tap the direct hotline number below to instantly connect with our dispatch team.</p>
             <a href="tel:0769074407" class="phone-l">0769074407</a>
-            <div class="p-title">Supported Gateways</div>
+            <div class="p-title">Payment Types Accepted</div>
             <div class="p-icons">
-                <span class="badge visa">Visa</span>
-                <span class="badge mc">Mastercard</span>
-                <span class="badge momo">Mobile Money</span>
+                <span class="badge">Visa</span>
+                <span class="badge">Mastercard</span>
+                <span class="badge">Mobile Money</span>
             </div>
-            <button class="cls-btn" onclick="document.getElementById('orderModal').classList.remove('active')">Return to Menu</button>
+            <button class="cls-btn" onclick="document.getElementById('orderModal').classList.remove('active')">Back To Menu</button>
         </div>
     </div>
+
     <script>
-        const items = [
-            { name: "Roasted Chicken", price: "UGX 22,000", desc: "Slow-turned golden rotisserie chicken profile. Glazed beautifully and served with artisan house mayonnaise and rich tomato ketchup.", img: "https://unsplash.com" },
-            { name: "Grilled Chicken", price: "UGX 24,000", desc: "Flame-kissed over open charcoal grids for distinct smokiness. Finished delicately, accompanied with signature mayonnaise and ketchup.", img: "https://unsplash.com" },
-            { name: "The Premium Rolex", price: "UGX 10,000", desc: "The timeless Kampala masterpiece. Prepared gracefully using two soft layered chapatis wrapped around four beautifully seasoned fried eggs.", img: "https://unsplash.com" },
-            { name: "French Fries", price: "UGX 9,000", desc: "Hand-cut, clean-drained premium potatoes crisped to a fine golden edge. Served instantly alongside elegant presentation pairings of mayonnaise and ketchup.", img: "https://unsplash.com" },
-            { name: "Roasted Chicken Liver", price: "UGX 14,000", desc: "Delicately seared iron-rich delicacies prepared over glowing embers with subtle spices. Includes matching mayonnaise and smooth ketchup dips.", img: "unsplash.com" },{ name: "Roasted Chicken Gizzards", price: "UGX 15,000", desc: "Firm, rich, textured bites skewered perfectly and fire-roasted to lock in robust flavors. Served with classic mayonnaise and ketchup.", img: "unsplash.com" },{ name: "Gourmet Sausages", price: "UGX 8,000", desc: "Plump premium sausages cooked over precise heat until beautifully browned. Accompanied by elegant portions of house mayonnaise and clean ketchup.", img: "unsplash.com" }];let count = 0;function render() {const g = document.getElementById('menu-grid');if(!g) return;g.innerHTML = items.map(i => <div class="card"> <div class="img-w"><img src="${i.img}" alt="${i.name}" class="menu-img" loading="lazy"></div> <div class="card-c"> <div class="card-h"><h3 class="i-name">${i.name}</h3><span class="i-price">${i.price}</span></div> <p class="i-desc">${i.desc}</p> <button class="add-btn" onclick="add()">Add To Order</button> </div> </div>).join('');}function add() {count++;document.getElementById('cartCount').innerText = ${count} ${count === 1 ? 'Item' : 'Items'};document.getElementById('cartBar').classList.add('active');}window.addEventListener('DOMContentLoaded', render);if (document.readyState === "interactive" || document.readyState === "complete") { render(); }
+        const food = [
+            { name: "Roasted Chicken", price: "UGX 22,000", desc: "Crispy, slow-turned rotisserie chicken. Served with rich tomato ketchup and smooth house mayonnaise dip.", img: "https://unsplash.com" },
+            { name: "Grilled Chicken", price: "UGX 24,000", desc: "Flame-grilled over authentic open charcoal embers. Served with signature tomato ketchup and house mayonnaise dip.", img: "https://unsplash.com" },
+            { name: "The Premium Rolex", price: "UGX 10,000", desc: "Classic street-style masterpiece! Two freshly rolled soft chapatis wrapped neatly around four perfectly seasoned fried eggs.", img: "https://unsplash.com" },
+            { name: "French Fries", price: "UGX 9,000", desc: "Hot, crispy hand-cut golden potato fries. Complete with side portions of house mayonnaise and signature tomato ketchup.", img: "https://unsplash.com" },
+            { name: "Roasted Chicken Liver", price: "UGX 14,000", desc: "Perfectly pan-seared local chicken livers tossed in subtle spices. Accompanied by smooth house mayonnaise and classic ketchup.", img: "https://unsplash.com" },
+r.          { name: "Roasted Chicken Gizzards", price: "UGX 15,000", desc: "Skewered and fire-roasted till beautifully textured. Includes complimentary side dips of house mayonnaise and rich ketchup.", img: "unsplash.com" },{ name: "Gourmet Sausages", price: "UGX 8,000", desc: "Two jumbo premium fried sausages cooked until perfectly browned. Paired with smooth mayonnaise and tomato ketchup.", img: "unsplash.com" }];let cartTotal = 0;function populateMenu() {const grid = document.getElementById('menu-grid');if (!grid) return;grid.innerHTML = food.map(item => <div class="card"> <div class="img-w"><img src="${item.img}" alt="${item.name}" class="menu-img" loading="lazy"></div> <div class="card-c"> <h3 class="i-name">${item.name}</h3> <div class="i-price">${item.price}</div> <p class="i-desc">${item.desc}</p> <button class="add-btn" onclick="addToBucket()">Add To Bucket</button> </div> </div>).join('');}function addToBucket() {cartTotal++;document.getElementById('cartCount').innerText = ${cartTotal} ${cartTotal === 1 ? 'Item' : 'Items'};document.getElementById('cartBar').classList.add('active');}// Trigger loop across all core rendering cycleswindow.addEventListener('DOMContentLoaded', populateMenu);if (document.readyState === "interactive" || document.readyState === "complete") { populateMenu(); }
